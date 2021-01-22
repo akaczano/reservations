@@ -1,0 +1,11 @@
+.app-nav {
+    background-color: #94150c;    
+}
+
+.nav-text {
+    color: #f9fab9;
+}
+
+.nav-text:hover {
+    color: cyan;
+}

@@ -1,0 +1,42 @@
+.seat {
+    border: solid 0.5px black;      
+    justify-content: center;
+    padding: 5px;
+    text-align: center;
+    user-select: none;
+  }
+  .seat:hover {
+    cursor: default;
+  }
+  
+  .seat-available {
+    background-color: #26c975;
+  }
+  
+  .seat-unavailable {
+    background-color: lightgray;
+  }
+  
+  .seat-reserved {
+    background-color: darkorange;
+  }
+  
+  .seat-selected {
+    background-color: #26b9c9;
+  }
+  
+  .seat-row-label {
+    font-style: italic;
+    background-color: #faf5e6;
+  }
+
+  .seats {
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);       
+  }
+  
+  .church {
+    height: 350px;
+    overflow-y: scroll;        
+  }
+  
