@@ -202,7 +202,7 @@ class MassDisplay extends React.Component {
             );
         }
         return (
-            <Container style={{marginTop: '15px'}}>
+            <Container style={{marginTop: '15px', marginLeft: '4px' }}>
                 <Row>
                     <h3>Reserve Seats for {getMassTitle(this.props.mass)}</h3>
                 </Row>

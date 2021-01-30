@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, Tab, Spinner, ListGroup, Row, Container, Card, Modal, Button } from 'react-bootstrap'
+import { Tabs, Tab, Spinner, ListGroup, Container, Card, Modal, Button } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import {
     loadMass, cancelReservation, setCancelPending, setCancelCanceled
@@ -9,6 +9,7 @@ import AsyncButton from './helper/AsyncButton';
 import SeatMap from './reservation/SeatMap';
 import { Page, Text, View, Document, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
 import { days, months } from '../util/util';
+import { getMassTitle } from'../util/DateFunctions'; 
 
 // Create styles
 const styles = StyleSheet.create({
@@ -100,9 +101,9 @@ class MassView extends React.Component {
                         return (
                             <ListGroup.Item key={r._id} style={{ marginLeft: '12px', marginRight: '12px' }}>
 
-                                <h4 style={{ color: '#2da65d' }}>{r.lastName}, {r.firstName}</h4>                                                                                                                                            
+                                <h4 style={{ color: '#2da65d' }}>{r.lastName}, {r.firstName}</h4>
                                 <AsyncButton
-                                    style={{ marginLeft: '20px', maxHeight: '35px', float: 'right'}}
+                                    style={{ marginLeft: '20px', maxHeight: '35px', float: 'right' }}
                                     variant="info"
                                     loading={this.props.canceling === r._id}
                                     onClick={() => {
@@ -112,7 +113,7 @@ class MassView extends React.Component {
                                 >
                                     Cancel
                             </AsyncButton>
-                            {getFullSeatList(r.seats)}
+                                {getFullSeatList(r.seats)}
                             </ListGroup.Item>
                         );
                     })}
@@ -176,29 +177,32 @@ class MassView extends React.Component {
         let filename = `SeatList_${day}_${month}_${date}_${hour}_${minutes}_${ampm}.pdf`
 
         return (
-            <Tabs defaultActiveKey="list">
-                <Tab eventKey="list" title="Reservation List">
-                    <PDFDownloadLink
-                        document={this.getDocument()}
-                        fileName={filename}
-                        style={{ marginLeft: '12px', fontSize: '17px' }}
-                    >
-                        {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download List')}
-                    </PDFDownloadLink>
-                    {this.getList()}
-                </Tab>
-                <Tab eventKey="map" title="Seat Map">
-                    <Container>
-                        <SeatMap
-                            seats={this.props.seatMap}
-                            seatClicked={this.selectSeat}
-                            seatMouseOver={() => { }}
-                            selectedReservation={this.state.selectedReservation}
-                        />
-                    </Container>
-                    {this.getReservationCard()}
-                </Tab>
-            </Tabs>
+            <>
+                <h3 style={{marginTop: '3px', marginBottom: '6px' ,marginLeft: '4px'}}>{getMassTitle(this.props.mass)}</h3>
+                <Tabs defaultActiveKey="list">
+                    <Tab eventKey="list" title="Reservation List">
+                        <PDFDownloadLink
+                            document={this.getDocument()}
+                            fileName={filename}
+                            style={{ marginLeft: '12px', fontSize: '17px' }}
+                        >
+                            {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download List')}
+                        </PDFDownloadLink>
+                        {this.getList()}
+                    </Tab>
+                    <Tab eventKey="map" title="Seat Map">
+                        <Container>
+                            <SeatMap
+                                seats={this.props.seatMap}
+                                seatClicked={this.selectSeat}
+                                seatMouseOver={() => { }}
+                                selectedReservation={this.state.selectedReservation}
+                            />
+                        </Container>
+                        {this.getReservationCard()}
+                    </Tab>
+                </Tabs>
+            </>
         );
     }
 }

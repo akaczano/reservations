@@ -92,9 +92,7 @@ class MassList extends React.Component {
     getContent() {
         if (this.props.massList !== null) {
             return (
-                this.props.massList.filter(m => {
-                    console.log(m.date);
-                    console.log(this.props.filter.startDate);
+                this.props.massList.filter(m => {                    
                     if (m.date < this.props.filter.startDate) return false;
                     if (!m.published) {
                         return this.props.authorized && !this.props.filter.published;
