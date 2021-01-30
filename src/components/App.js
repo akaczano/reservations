@@ -21,7 +21,7 @@ class App extends React.Component {
     render() {
         return (
             <Provider store={store}>
-                <BrowserRouter basename="/opt/dist/">
+                <BrowserRouter>
                     <Navbar />
                     <Switch>
                         <Route exact path="/" component={MassList} />
