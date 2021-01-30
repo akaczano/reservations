@@ -51,7 +51,8 @@ export const initialWeeklyState = {
         modalVisible: false,
         firstInvalid: false,
         lastInvalid: false,        
-        config: null
+        config: null,
+        configurationId: ""
     },
 };
 

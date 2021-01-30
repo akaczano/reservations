@@ -8,7 +8,8 @@ export const initialDashboardState = {
 };
 
 const dashboardReducer = (state, action) => {    
-    if (action.type === DASHBOARD_LOADED) {        
+    if (action.type === DASHBOARD_LOADED) { 
+        console.log(action.payload);       
         let sums = {};
         for (const mass of action.payload.filter(m => m.date > new Date())) {
             let total =  mass.reservations.reduce((a, b) => a + b.seats.length, 0);

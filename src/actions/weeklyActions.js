@@ -39,7 +39,8 @@ export const loadList = () => (dispatch, getState) => {
 export const saveItem = () => (dispatch, getState) => {
     dispatch({ type: WEEKLY_SAVING });      
     if (getState().admin.weeklyMassForm.saving) {      
-        let body = getState().admin.weeklyMassForm.selected;        
+        let body = getState().admin.weeklyMassForm.selected;  
+        console.log(body);        
         if (body._id) {
             body.id = body._id;
         }  
@@ -116,6 +117,7 @@ export const setMinute = minute => {
 };
 
 export const setConfig = config => {
+    console.log(config);
     return {
         type: WEEKLY_SET_CONFIG,
         payload: config

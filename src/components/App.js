@@ -21,7 +21,7 @@ class App extends React.Component {
     render() {
         return (
             <Provider store={store}>
-                <BrowserRouter>
+                <BrowserRouter basename="/opt/dist/">
                     <Navbar />
                     <Switch>
                         <Route exact path="/" component={MassList} />
@@ -29,7 +29,7 @@ class App extends React.Component {
                         <Route exact path="/info" component={Info} />  
                         <Route exact path="/login" component={Login} />  
                         <Route exact path="/admin" component={Admin} />  
-                        <Route exact path="/view/:id" component={MassView} />                                              
+                        <Route exact path="/view/:id" component={MassView} />                                      
                     </Switch>
                 </BrowserRouter>
             </Provider>

@@ -14,6 +14,16 @@ class MassForm extends React.Component {
         minutesInvalid: false,
         ampm: "am"
     }
+
+    componentDidMount() {
+        if (this.props.mass.configurationId.length < 1) {
+            console.log('hello');
+            if (this.props.configList && this.props.configList.length > 0) {
+                this.props.mass.configurationId = this.props.configList[0]._id;                
+            }
+        }
+    }
+
     getSelect() {
         if (this.props.configList) {
             return (

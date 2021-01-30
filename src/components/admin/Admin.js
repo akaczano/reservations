@@ -42,15 +42,15 @@ class Admin extends React.Component {
 
         const labels = [
             'Dashboard',
-            'Create mass',
             'Configurations',
+            'Create mass',            
             'Weekly masses',
             'Accounts'
         ];
         const components = [
-            this.dashboard, 
-            this.createMass, 
-            this.configs, 
+            this.dashboard,  
+            this.configs,                        
+            this.createMass,             
             this.weeklyMasses, 
             this.accounts
         ];

@@ -20,11 +20,13 @@ import SelectionDialog from './SelectionDialog';
 
 class WeeklyMassForm extends React.Component {
 
-    componentDidMount() {        
-        if (this.props.configList && this.props.configList.length > 0) {                        
-            if (this.props.entry.configurationId.length > 1) {
-                
+    componentDidMount() {
+        if (this.props.configList && this.props.configList.length > 0) {
+            if (this.props.entry.configurationId.length < 1) {                
                 this.props.setConfig(this.props.configList[0])
+            }
+            else {
+                this.props.setConfig(this.props.configList.find(c => c._id === this.props.entry.configurationId))
             }
         }
     }
@@ -110,7 +112,11 @@ class WeeklyMassForm extends React.Component {
                         <Form.Control
                             as="select"
                             value={this.props.entry.configurationId}
-                            onChange={e => this.props.setConfig(this.props.configList.find(c => c._id === e.target.value))}
+                            onChange={e => {
+                                console.log("new val: " + e.target.value)
+                                this.props.setConfig(this.props.configList.find(c => c._id === e.target.value))
+                            }
+                            }
                             isInvalid={this.props.configInvalid}
                         >
                             {this.props.configList?.map(c => {
@@ -120,7 +126,7 @@ class WeeklyMassForm extends React.Component {
                             })}
                         </Form.Control>
                         <Form.Control.Feedback type="invalid">
-                            This configuration conflicts with at least one of your 
+                            This configuration conflicts with at least one of your
                             recurring reservations
                         </Form.Control.Feedback>
                     </Form.Group>
@@ -176,7 +182,7 @@ const mapStateToProps = state => {
         rawHour: state.admin.weeklyMassForm.rawHour,
         rawMinute: state.admin.weeklyMassForm.rawMinute,
         pm: state.admin.weeklyMassForm.pm,
-        success: state.admin.weeklyMassForm.saved        
+        success: state.admin.weeklyMassForm.saved
     };
 };
 

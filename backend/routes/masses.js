@@ -58,8 +58,8 @@ router.delete('/:id', auth, async (req, res) => {
 });
 
 router.get('/', includeUser, async (req, res) => {    
-
-    try {   
+    
+    try {           
         let masses = null;
         if (req.user) {
             masses = await Mass.find({inactive: false})
@@ -76,6 +76,7 @@ router.get('/', includeUser, async (req, res) => {
 
         const weeklyMasses = await WeeklyMass.find({});
         for (const wm of weeklyMasses) {
+            
             let d = new Date();
             while (d.getDay() !== wm.day) {
                 d = new Date(d * 1 + 24 * 60 * 60 * 1000);
@@ -85,7 +86,7 @@ router.get('/', includeUser, async (req, res) => {
             d = new Date(d.setSeconds(0));
             d = new Date(d.setMilliseconds(0));                        
             if (d - new Date()  < 7 * 24 * 60 * 60 * 1000) {
-                if (!masses.find(m => m.date * 1 == d * 1)) {
+                if (!masses.find(m => m.date * 1 == d * 1)) {                     
                     let newMass = new Mass({
                         date: d,
                         configuration: await Configuration.findById(wm.configurationId),

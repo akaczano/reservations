@@ -26,15 +26,15 @@ class Sidebar extends React.Component {
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="Create mass">
-                                    <IoCreateSharp style={{ fontSize: '25px', marginRight: '10px' }} />
-                                    Create mass
-                                </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
                                 <Nav.Link eventKey="Configurations">
                                     <IoSettingsSharp style={{ fontSize: '25px', marginRight: '10px' }} />
                                     Configurations
+                                </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="Create mass">
+                                    <IoCreateSharp style={{ fontSize: '25px', marginRight: '10px' }} />
+                                    Create mass
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>

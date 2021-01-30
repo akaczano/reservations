@@ -4,7 +4,7 @@ const { auth } = require('../middleware/auth');
 
 const router = express.Router();
 router.post('/', auth, async (req, res) => {
-    const { day, hour, minute, configurationId, recurringReservations } = req.body;
+    const { day, hour, minute, configurationId, recurringReservations } = req.body;    
     try {
         if (req.body.id) {
             const entry = await WeeklyMass.findById(req.body.id);
