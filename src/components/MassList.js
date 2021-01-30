@@ -42,7 +42,7 @@ class MassList extends React.Component {
                     </AsyncButton>
                     <Button
                         variant="info"                        
-                        onClick={() => this.props.setDeletePending(mass._id)}
+                        onClick={() => this.props.setDeletePending(mass._id)}                        
                     >
                         {this.props.deleting === mass._id ? (<Spinner animation="border" />) : 'Delete'}
                     </Button>
@@ -107,7 +107,7 @@ class MassList extends React.Component {
                                 <Card.Text>
                                     {this.getTotalReservations(mass)} seats reserved
                                 </Card.Text>
-                                <ReserveButton mass={mass} />
+                                <ReserveButton mass={mass} style={{marginBottom: '6px'}} />
                                 {this.getExtraButtons(mass)}
                             </Card.Body>
                         </Card>
