@@ -34,15 +34,14 @@ class MassList extends React.Component {
                     </Button>
                     <AsyncButton
                         variant="info"
-                        style={{ marginLeft: '18px' }}
+                        style={{ marginLeft: '18px', marginRight: '18px' }}
                         loading={this.props.publishing === mass._id}
                         onClick={() => this.props.publishMass(mass)}
                     >
                         {mass.published ? 'Hide' : 'Publish'}
                     </AsyncButton>
                     <Button
-                        variant="info"
-                        style={{ marginLeft: '18px' }}
+                        variant="info"                        
                         onClick={() => this.props.setDeletePending(mass._id)}
                     >
                         {this.props.deleting === mass._id ? (<Spinner animation="border" />) : 'Delete'}

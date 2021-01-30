@@ -33,7 +33,7 @@ class MassView extends React.Component {
     getDocument() {
         const resList = this.props.mass.reservations.slice();
         resList.sort((a, b) => a.lastName > b.lastName);
-        
+
         resList.push({
             seats: this.props.seatMap
                 .map((s, i) => i)
@@ -42,10 +42,10 @@ class MassView extends React.Component {
             firstName: 'Walk',
             lastName: 'In'
         });
-        
+
         return (
             <Document>
-                <Page size="A4" style={{paddingVertical: '8mm'}}>
+                <Page size="A4" style={{ paddingVertical: '8mm' }}>
                     <View style={styles.section}>
                         <Text style={{ textAlign: 'center', fontSize: '6.5mm' }}>
                             Reservation List
@@ -95,28 +95,24 @@ class MassView extends React.Component {
                         <Button onClick={() => this.props.setCancelCanceled()}>No</Button>
                     </Modal.Footer>
                 </Modal>
-                <ListGroup style={{marginTop: '8px'}}>
+                <ListGroup style={{ marginTop: '8px' }}>
                     {this.props.mass.reservations.map(r => {
                         return (
                             <ListGroup.Item key={r._id} style={{ marginLeft: '12px', marginRight: '12px' }}>
 
-                                <h4 style={{ color: '#2da65d' }}>{r.lastName}, {r.firstName}</h4>
-                                <Row>
-                                    <div style={{ marginLeft: '5px' }}>
-                                        {getFullSeatList(r.seats)}
-                                    </div>
-                                    <AsyncButton
-                                        style={{ marginLeft: '20px', maxHeight: '35px' }}
-                                        variant="info"
-                                        loading={this.props.canceling === r._id}
-                                        onClick={() => {
-                                            this.props.setCancelPending(r);
-                                            this.setState({ selectedReservation: null });
-                                        }}
-                                    >
-                                        Cancel
+                                <h4 style={{ color: '#2da65d' }}>{r.lastName}, {r.firstName}</h4>                                                                                                                                            
+                                <AsyncButton
+                                    style={{ marginLeft: '20px', maxHeight: '35px', float: 'right'}}
+                                    variant="info"
+                                    loading={this.props.canceling === r._id}
+                                    onClick={() => {
+                                        this.props.setCancelPending(r);
+                                        this.setState({ selectedReservation: null });
+                                    }}
+                                >
+                                    Cancel
                             </AsyncButton>
-                                </Row>
+                            {getFullSeatList(r.seats)}
                             </ListGroup.Item>
                         );
                     })}
@@ -167,23 +163,23 @@ class MassView extends React.Component {
                     <Spinner animation="border" />
                 </div>
             );
-        }        
-        
+        }
+
         let day = days[this.props.mass.date.getDay()];
         let month = months[this.props.mass.date.getMonth()];
         let date = this.props.mass.date.getDate();
         let hour = this.props.mass.date.getHours();
-        let minutes = this.props.mass.date.getMinutes() < 10 ? 
-            "0" + this.props.mass.date.getMinutes() : this.props.   mass.date.getMinutes();
+        let minutes = this.props.mass.date.getMinutes() < 10 ?
+            "0" + this.props.mass.date.getMinutes() : this.props.mass.date.getMinutes();
         let ampm = hour >= 12 ? "PM" : "AM";
-        hour = hour > 12 ? hour - 12 : hour;        
+        hour = hour > 12 ? hour - 12 : hour;
         let filename = `SeatList_${day}_${month}_${date}_${hour}_${minutes}_${ampm}.pdf`
 
         return (
             <Tabs defaultActiveKey="list">
                 <Tab eventKey="list" title="Reservation List">
-                    <PDFDownloadLink 
-                        document={this.getDocument()} 
+                    <PDFDownloadLink
+                        document={this.getDocument()}
                         fileName={filename}
                         style={{ marginLeft: '12px', fontSize: '17px' }}
                     >
