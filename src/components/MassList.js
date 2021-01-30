@@ -26,7 +26,7 @@ class MassList extends React.Component {
             return (
                 <>
                     <Button
-                        style={{ marginLeft: '18px' }}
+                        style={{ marginLeft: '18px', marginBottom: '6px' }}
                         variant="info"
                         onClick={() => this.props.history.push(`/view/${mass._id}`)}
                     >
@@ -34,7 +34,7 @@ class MassList extends React.Component {
                     </Button>
                     <AsyncButton
                         variant="info"
-                        style={{ marginLeft: '18px', marginRight: '18px' }}
+                        style={{ marginLeft: '18px', marginRight: '18px', marginBottom: '6px' }}
                         loading={this.props.publishing === mass._id}
                         onClick={() => this.props.publishMass(mass)}
                     >
@@ -42,7 +42,8 @@ class MassList extends React.Component {
                     </AsyncButton>
                     <Button
                         variant="info"                        
-                        onClick={() => this.props.setDeletePending(mass._id)}                        
+                        onClick={() => this.props.setDeletePending(mass._id)}    
+                        style={{marginBottom: '6px'}}                    
                     >
                         {this.props.deleting === mass._id ? (<Spinner animation="border" />) : 'Delete'}
                     </Button>
@@ -107,7 +108,7 @@ class MassList extends React.Component {
                                 <Card.Text>
                                     {this.getTotalReservations(mass)} seats reserved
                                 </Card.Text>
-                                <ReserveButton mass={mass} style={{marginBottom: '6px'}} />
+                                <ReserveButton mass={mass} />
                                 {this.getExtraButtons(mass)}
                             </Card.Body>
                         </Card>
@@ -166,6 +167,7 @@ function ReserveButton(props) {
         <Button
             variant="info"
             onClick={() => { history.push(`/mass/${props.mass._id}`) }}
+            style={{marginBottom: '6px'}}
         >
             Reserve Seats
         </Button>
