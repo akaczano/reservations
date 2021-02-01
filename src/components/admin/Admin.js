@@ -11,7 +11,6 @@ import SideBar from './Sidebar';
 
 
 class Admin extends React.Component {
-
     dashboard = () => {
         return <Dashboard />
     }

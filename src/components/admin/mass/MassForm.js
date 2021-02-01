@@ -16,9 +16,8 @@ class MassForm extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.mass.configurationId.length < 1) {
-            console.log('hello');
-            if (this.props.configList && this.props.configList.length > 0) {
+        if (this.props.mass.configurationId.length < 1) {                
+            if (this.props.configList && this.props.configList.length > 0) {                
                 this.props.mass.configurationId = this.props.configList[0]._id;                
             }
         }
@@ -83,11 +82,19 @@ class MassForm extends React.Component {
         if (hours < 12 && this.state.ampm === 'pm') {
             hours += 12;
         }
+        if (hours === 12 && this.state.ampm === 'am') {
+            hours = 0;
+        }
 
         let date = this.props.mass.date;
         date.setHours(hours);
         date.setMinutes(minutes);        
         this.props.setDate(date);        
+        
+        if (this.props.mass.configurationId.length < 1) {
+            this.props.mass.configurationId = this.props.configList[0]._id;            
+        }
+
         this.props.saveMass(this.props.mass);        
     };
 

@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
             const data = Object.keys(this.props.totals).map(date => {
                 return {mass: date, reservations: this.props.totals[date]};
             });
-            console.log(data);
+            
             return (                
                 <Chart data={data}>
                     <ArgumentAxis />
