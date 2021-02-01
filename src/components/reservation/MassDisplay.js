@@ -5,14 +5,14 @@ import { connect } from 'react-redux';
 import SeatMap from './SeatMap';
 import AsyncButton from '../helper/AsyncButton';
 import { getMassTime, getMassTitle } from '../../util/DateFunctions';
-import { getSeatList } from '../../util/seatFunctions';   
-import { 
-    getMass, 
-    setSeatSelected, 
-    confirm, 
+import { getSeatList } from '../../util/seatFunctions';
+import {
+    getMass,
+    setSeatSelected,
+    confirm,
     back,
     saveReservation
-} from '../../actions/massActions'; 
+} from '../../actions/massActions';
 
 import './MassDisplay.css';
 
@@ -22,14 +22,14 @@ const SEATS_PER_ROW = 13;
 class MassDisplay extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {                        
+        this.state = {
             firstName: '',
-            lastName: '',                            
+            lastName: '',
         }
     }
 
-    componentDidMount() {        
-        this.props.getMass(this.props.match.params.id);        
+    componentDidMount() {
+        this.props.getMass(this.props.match.params.id);
     }
 
     handleClick = (seat) => {
@@ -42,8 +42,8 @@ class MassDisplay extends React.Component {
 
 
 
-    confirmReservation = async (e) => {        
-        e.preventDefault();        
+    confirmReservation = async (e) => {
+        e.preventDefault();
         const firstName = this.state.firstName;
         const lastName = this.state.lastName;
         const seats = this.props.seats;
@@ -51,7 +51,7 @@ class MassDisplay extends React.Component {
             firstName,
             lastName,
             seats: seats.map((seat, idx) => idx).filter(idx => seats[idx] === 'selected')
-        }        
+        }
         this.props.saveReservation(this.props.match.params.id, reservation);
     }
 
@@ -70,7 +70,7 @@ class MassDisplay extends React.Component {
                                 Back to menu
                         </Button>
                             <Button
-                                onClick={() => this.props.confirm() }
+                                onClick={() => this.props.confirm()}
                                 disabled={this.countSeats() === 0}>
                                 Continue
                             </Button>
@@ -113,19 +113,19 @@ class MassDisplay extends React.Component {
                             <AsyncButton
                                 variant="primary"
                                 type="submit"
-                                onClick={e => this.confirmReservation(e)}                                
+                                onClick={e => this.confirmReservation(e)}
                                 loading={this.props.posting}
                             >
                                 Confirm Reservation
-                            </AsyncButton>                            
+                            </AsyncButton>
                             <Button
                                 style={{ marginLeft: '8px' }}
-                                onClick={() => this.props.back() }
+                                onClick={() => this.props.back()}
                             >
                                 Cancel
                             </Button>
                             <Form.Text>
-                                <span style={{color: 'red'}}>
+                                <span style={{ color: 'red' }}>
                                     {this.props.postError}
                                 </span>
                             </Form.Text>
@@ -174,7 +174,7 @@ class MassDisplay extends React.Component {
                             <tr>
                                 <td><h4>Reservation Time</h4></td>
                                 <td><h4>
-                                    {new Date().toLocaleTimeString()} on {new Date().toLocaleDateString()}                                    
+                                    {new Date().toLocaleTimeString()} on {new Date().toLocaleDateString()}
                                 </h4></td>
                             </tr>
                         </tbody>
@@ -185,29 +185,28 @@ class MassDisplay extends React.Component {
 
         }
     }
-    render() {        
+    render() {
         if (this.props.errorMessage !== null) {
             return <Container><h2>{this.props.errorMessage}</h2></Container>
         }
         else if (this.props.mass === null) {
             return (
-                <Container>
-                    <Row style={{ marginTop: '20px' }}>
-                        <h3 style={{ marginRight: '10px' }}>Loading mass</h3>
-                        <Spinner animation="border" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </Spinner>
-                    </Row>
-                </Container>
+                <Row style={{ marginTop: '20px' }}>
+                    <h3 style={{ marginRight: '10px' }}>Loading mass</h3>
+                    <Spinner animation="border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </Spinner>
+                </Row>
+
             );
         }
         return (
-            <Container style={{marginTop: '15px', marginLeft: '4px' }}>
+            <div style={{ marginTop: '15px', marginLeft: '4px' }}>
                 <Row>
-                    <h3>Reserve Seats for {getMassTitle(this.props.mass)}</h3>
+                    <h3 style={{marginLeft: '16px'}}>Reserve Seats for {getMassTitle(this.props.mass)}</h3>
                 </Row>
                 {this.getComponent()}
-            </Container>
+            </div>
         );
     }
 }
@@ -224,10 +223,10 @@ const mapStateToProps = state => {
 };
 
 export default connect(
-    mapStateToProps, { 
-        getMass, 
-        setSeatSelected, 
-        confirm, 
-        back,
-        saveReservation 
-    })(MassDisplay);
+    mapStateToProps, {
+    getMass,
+    setSeatSelected,
+    confirm,
+    back,
+    saveReservation
+})(MassDisplay);
