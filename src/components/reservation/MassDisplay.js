@@ -81,7 +81,7 @@ class MassDisplay extends React.Component {
         }
         else if (this.props.stage === 'input') {
             return (
-                <>
+                <div style={{marginLeft: '20px'}}>
                     <Row><hr /></Row>
                     <Row><h4>Confirm Reservation</h4><br /></Row>
                     <Row>
@@ -131,7 +131,7 @@ class MassDisplay extends React.Component {
                             </Form.Text>
                         </Form>
                     </Row>
-                </>
+                </div>
             );
         }
         else if (this.props.stage === 'receipt') {
@@ -191,7 +191,7 @@ class MassDisplay extends React.Component {
         }
         else if (this.props.mass === null) {
             return (
-                <Row style={{ marginTop: '20px' }}>
+                <Row style={{ marginTop: '20px', margin: 0 }}>
                     <h3 style={{ marginRight: '10px' }}>Loading mass</h3>
                     <Spinner animation="border" role="status">
                         <span className="sr-only">Loading...</span>
@@ -201,7 +201,7 @@ class MassDisplay extends React.Component {
             );
         }
         return (
-            <div style={{ marginTop: '15px', marginLeft: '4px' }}>
+            <div style={{ margin: 0, marginTop: '15px', marginLeft: '15px'}}>
                 <Row>
                     <h3 style={{marginLeft: '16px'}}>Reserve Seats for {getMassTitle(this.props.mass)}</h3>
                 </Row>
