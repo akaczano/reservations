@@ -25,6 +25,10 @@ class MassDisplay extends React.Component {
         this.state = {
             firstName: '',
             lastName: '',
+            email: '',
+            firstNameInvalid: false,
+            lastNameInvalid: false,
+            emailInvalid: false
         }
     }
 
@@ -43,16 +47,35 @@ class MassDisplay extends React.Component {
 
 
     confirmReservation = async (e) => {
-        e.preventDefault();
+        e.preventDefault();        
         const firstName = this.state.firstName;
         const lastName = this.state.lastName;
+        if (firstName.length < 1 || lastName.length < 1 || !this.validateEmail()) {
+            this.setState({
+                firstNameInvalid: firstName.length < 1,
+                lastNameInvalid: lastName.length < 1,
+                emailInvalid: !this.validateEmail()
+            });
+            return;
+        }        
         const seats = this.props.seats;
         const reservation = {
             firstName,
             lastName,
-            seats: seats.map((seat, idx) => idx).filter(idx => seats[idx] === 'selected')
+            seats: seats.map((seat, idx) => idx).filter(idx => seats[idx] === 'selected'),
+            email: this.state.email            
         }
         this.props.saveReservation(this.props.match.params.id, reservation);
+    }
+
+    validateEmail = () => {
+        const email = this.state.email;
+        if (email.length < 1) return true;
+        if (!email.includes('@')) return false;
+        if (!email.includes('.')) return false;
+        if (email.split('@').length < 2) return false;
+        if (email.split('.').length < 2) return false;
+        return true;
     }
 
 
@@ -92,7 +115,11 @@ class MassDisplay extends React.Component {
                                     type="text"
                                     value={this.state.firstName}
                                     onChange={e => this.setState({ firstName: e.target.value })}
+                                    isInvalid={this.state.firstNameInvalid}                                    
                                 />
+                                <Form.Control.Feedback type="invalid">
+                                    First name is required
+                                </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Last Name</Form.Label>
@@ -100,11 +127,23 @@ class MassDisplay extends React.Component {
                                     type="text"
                                     value={this.state.lastName}
                                     onChange={e => this.setState({ lastName: e.target.value })}
+                                    isInvalid={this.state.lastNameInvalid}
                                 />
+                                <Form.Control.Feedback type="invalid">
+                                    Last name is required
+                                </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Email (optional)</Form.Label>
-                                <Form.Control type="email" />
+                                <Form.Control 
+                                    type="email" 
+                                    value={this.state.email}
+                                    onChange={e => this.setState({email: e.target.value})}
+                                    isInvalid={this.state.emailInvalid}
+                                    />
+                                <Form.Control.Feedback type='invalid'>
+                                    Invalid email
+                                </Form.Control.Feedback>
                                 <Form.Text>
                                     This will be used to send you a confirmation email,
                                     but will not be saved.

@@ -24,6 +24,10 @@ export const WEEKLY_SELECT_SEAT = 'WEEKLY_SELECT_SEAT';
 export const WEEKLY_CLOSE_SELECT = 'WEEKLY_CLOSE_SELECT';
 export const WEEKLY_SAVE_RESERVATION = 'WEEKLY_SAVE_RESERVATION';
 export const WEEKLY_DELETE_RESERVATION = 'WEEKLY_DELETE_RESERVATION';
+export const WEEKLY_OPEN_PUBLISH = 'WEEKLY_OPEN_PUBLISH';
+export const WEEKLY_PUBLISHING = 'WEEKLY_PUBLISHING';
+export const WEEKLY_PUBLISHED = 'WEEKLY_PUBLISHED';
+export const WEEKLY_CANCEL_PUBLISH = 'WEEKLY_CANCEL_PUBLISH';
 
 export const loadList = () => (dispatch, getState) => {
     client
@@ -67,6 +71,11 @@ export const deleteItem = item => (dispatch, getState) => {
             dispatch({type: WEEKLY_DELETE_ERROR});
         });
 };
+
+export const publishMass = item => (dispatch, getState) => {
+    dispatch({type: WEEKLY_PUBLISHING});
+    
+}
 
 export const setList = list => {
     return {
@@ -192,3 +201,16 @@ export const deleteReservation = index => {
         payload: index
     };
 };
+
+export const openPublishDialog = () => {
+    return {
+        type: WEEKLY_OPEN_PUBLISH
+    };
+};
+
+export const cancelPublish = () => {
+    return {
+        type: WEEKLY_CANCEL_PUBLISH
+    };
+};
+

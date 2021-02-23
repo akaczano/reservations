@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Spinner, ListGroup, Button } from 'react-bootstrap';
+import { Form, Spinner, ListGroup, Button } from 'react-bootstrap';
 import { loadList, selectItem, deleteItem } from '../../../actions/weeklyActions';
 import { BsTrashFill, BsPencil } from 'react-icons/bs';
 import { days } from '../../../util/util';
@@ -30,8 +30,8 @@ class WeeklyMassList extends React.Component {
         else {
             return (
                 <Button variant="info" onClick={() => this.props.deleteItem(entry)}>
-                <BsTrashFill />
-            </Button>
+                    <BsTrashFill />
+                </Button>
             );
         }
     }
@@ -49,28 +49,31 @@ class WeeklyMassList extends React.Component {
             );
         }
         return (
-            <div style={{marginRight: '15px'}}>
+            <div style={{ marginRight: '15px' }}>
                 <h3>Weekly Masses</h3>
                 <ListGroup>
                     {this.props.list.map(entry => {
                         return (
                             <ListGroup.Item key={entry._id}>
                                 <h4>{this.getTitle(entry)}</h4>
-                                <Button 
-                                    variant="info" 
-                                    style={{marginRight: '10px'}}
+                                <Button
+                                    variant="info"
+                                    style={{ marginRight: '10px' }}
                                     onClick={() => this.props.selectItem(entry)}
                                 >
                                     <BsPencil />
                                 </Button>
                                 {this.getButtonContents(entry)}
+                                <Button variant="info" style={{marginLeft: '15px'}}>
+                                    Publish
+                                </Button>
                             </ListGroup.Item>
                         );
                     })}
                 </ListGroup>
-                <Button 
-                    style={{marginTop: '15px'}}
-                    onClick={() => {this.props.selectItem()}}
+                <Button
+                    style={{ marginTop: '15px' }}
+                    onClick={() => { this.props.selectItem() }}
                 >
                     Add Weekly Mass
                 </Button>
@@ -79,7 +82,7 @@ class WeeklyMassList extends React.Component {
     }
 }
 
-const mapStateToProps = state => {    
+const mapStateToProps = state => {
     return {
         list: state.admin.weeklyMassForm.list,
         listError: state.admin.weeklyMassForm.listError,

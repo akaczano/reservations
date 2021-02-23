@@ -54,6 +54,10 @@ export const initialWeeklyState = {
         config: null,
         configurationId: ""
     },
+    publish: {
+        visible: false,
+        wm: null
+    }
 };
 
 const weeklyReducer = (state, action) => {
