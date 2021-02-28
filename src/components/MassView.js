@@ -31,9 +31,17 @@ class MassView extends React.Component {
         this.props.loadMass(this.props.match.params.id);
     }
 
+    compareNames = (a, b) => {
+        const lastResult = a.lastName.localeCompare(b.lastName);
+        if (lastResult != 0) return lastResult;
+        else {
+            return a.firstName.localeCompare(b.firstName);
+        }
+    }
+
     getDocument() {
         const resList = this.props.mass.reservations.slice();
-        resList.sort((a, b) => a.lastName > b.lastName);
+        resList.sort(this.compareNames);
 
         resList.push({
             seats: this.props.seatMap
@@ -97,7 +105,7 @@ class MassView extends React.Component {
                     </Modal.Footer>
                 </Modal>
                 <ListGroup style={{ marginTop: '8px' }}>
-                    {this.props.mass.reservations.map(r => {
+                    {this.props.mass.reservations.sort(this.compareNames).map(r => {
                         return (
                             <ListGroup.Item key={r._id} style={{ marginLeft: '12px', marginRight: '12px' }}>
 
